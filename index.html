@@ -20,6 +20,7 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
+  section[id]{ scroll-margin-top:84px; }
   body{
     font-family:'Work Sans', sans-serif;
     background:var(--birch);
@@ -70,7 +71,7 @@
   .hero{
     background:var(--pine);
     color:var(--cream);
-    padding:72px 0 0;
+    padding:40px 0 0;
     position:relative;
     overflow:hidden;
   }
@@ -295,7 +296,7 @@
         </ul>
       </div>
       <div class="price-line"><span class="num mono">$30</span><span class="unit">per pouch · $2 per stick</span></div>
-      <a href="#shop" class="btn btn-primary" style="justify-content:center;">Get notified at launch</a>
+      <a href="#" id="notifyBtn" class="btn btn-primary" style="justify-content:center;">Get notified at launch</a>
     </div>
   </div>
   <div class="claw" style="color:var(--pine-deep);"></div>
@@ -339,13 +340,13 @@
         <h3>Raspberry Trial Pouch</h3>
         <p class="desc">One 15-stick pouch, no commitment. See if it earns a spot in your bag.</p>
         <div class="price">$30 <small>one-time</small></div>
-        <a href="#" class="btn btn-primary">Add to cart</a>
+        <a href="https://buy.stripe.com/test_9B628s2Jf3bg5Dp2yX7EQ00" class="btn btn-primary">Add to cart</a>
       </div>
       <div class="card">
         <h3>1-Pouch Subscription</h3>
         <p class="desc">One Raspberry pouch delivered every month. Skip or cancel anytime, no questions.</p>
         <div class="price">$27 <small>/ month, save 10%</small></div>
-        <a href="#" class="btn btn-primary">Subscribe & save</a>
+        <a href="https://buy.stripe.com/test_00w00kabH7rw0j5flJ7EQ02" class="btn btn-primary">Subscribe & save</a>
       </div>
       <div class="card featured">
         <span class="flag">Most mamas choose this</span>
@@ -353,14 +354,14 @@
         <p class="desc">Two Raspberry pouches delivered every month. Skip or cancel anytime, no questions.</p>
         <div class="price">$54 <small>/ month, save 10%</small></div>
         <p style="font-size:12.5px; font-weight:600; color:var(--amber-light); margin-top:-6px;">✓ Free shipping</p>
-        <a href="#" class="btn btn-primary">Subscribe & save</a>
+        <a href="https://buy.stripe.com/test_6oUcN6cjPh264zl7Th7EQ03" class="btn btn-primary">Subscribe & save</a>
       </div>
       <div class="card">
         <h3>2-Pouch Bundle</h3>
         <p class="desc">One for the pantry, one for the gym bag — 30 sticks total.</p>
         <div class="price">$56 <small>one-time, save $4</small></div>
         <p style="font-size:12.5px; font-weight:600; color:var(--amber-light); margin-top:-6px;">✓ Free shipping</p>
-        <a href="#" class="btn btn-primary">Add to cart</a>
+        <a href="https://buy.stripe.com/test_3cIbJ2fw18vA3vh1uT7EQ01" class="btn btn-primary">Add to cart</a>
       </div>
     </div>
   </div>
@@ -412,6 +413,7 @@
     var popup = document.getElementById('emailPopup');
     var closeBtn = document.getElementById('popupClose');
     var form = document.getElementById('popupForm');
+    var notifyBtn = document.getElementById('notifyBtn');
 
     function openPopup(){ popup.classList.add('show'); }
     function closePopup(){ popup.classList.remove('show'); }
@@ -421,6 +423,21 @@
     closeBtn.addEventListener('click', closePopup);
     popup.addEventListener('click', function(e){
       if (e.target === popup) closePopup();
+    });
+    notifyBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      openPopup();
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(link){
+      link.addEventListener('click', function(e){
+        var id = link.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
+        if (target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
     });
     form.addEventListener('submit', function(e){
       e.preventDefault();
