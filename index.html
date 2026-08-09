@@ -161,20 +161,23 @@
   .sec-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:44px; flex-wrap:wrap; }
   .sec-head h2{ font-size:clamp(26px,4vw,36px); }
   .sec-head p{ opacity:0.75; max-width:42ch; font-size:15px; }
-  .cards{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
-  @media (max-width:1000px){ .cards{ grid-template-columns:repeat(2,1fr); } }
+  .cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
   @media (max-width:600px){ .cards{ grid-template-columns:1fr; } }
   .card{
     background:var(--pine-deep); border:1px solid var(--line); border-radius:22px;
     padding:28px; display:flex; flex-direction:column; gap:16px;
   }
   .card.featured{ border-color:var(--amber-light); position:relative; }
+  .card.card-cream{ background:var(--cream); border-color:rgba(43,27,18,0.14); color:var(--ink); }
+  .card.card-cream .desc{ color:#5a4d3c; }
+  .card.card-cream.featured{ border-color:var(--berry); }
   .flag{
     position:absolute; top:-13px; left:24px;
     background:var(--amber-light); color:var(--pine-deep);
     font-size:11.5px; font-weight:700; padding:5px 12px; border-radius:100px;
     text-transform:uppercase; letter-spacing:0.06em;
   }
+  .card-cream .flag{ background:var(--berry); color:var(--cream); }
   .card h3{ font-size:20px; }
   .card .desc{ font-size:14px; opacity:0.75; }
   .card .price{ font-size:30px; font-weight:800; font-family:'Baloo 2'; margin-top:auto; }
@@ -350,32 +353,33 @@
     </div>
     <div class="cards">
       <div class="card">
-        <h3>Raspberry Trial Pouch</h3>
-        <p class="desc">One 15-stick pouch, no commitment. See if it earns a spot in your bag.</p>
+        <h3>1 Hydration Pouch</h3>
+        <p class="desc">One 15-stick pouch, no commitment.</p>
         <div class="price">$30 <small>one-time</small></div>
         <p style="font-size:14.5px; font-weight:600; color:var(--cream); margin-top:-6px;">+ $6 shipping</p>
         <a href="https://buy.stripe.com/3cIdRa99Q12gbro7fq0x204" class="btn btn-primary">Add to cart</a>
       </div>
       <div class="card">
+        <h3>2-Pouch Bundle</h3>
+        <p class="desc">One for the pantry, one for the gym bag — 30 sticks total.</p>
+        <div class="price">$56 <small>one-time</small></div>
+        <p style="font-size:14.5px; font-weight:600; color:var(--cream); margin-top:-6px;">✓ Free shipping &nbsp;·&nbsp; Save $16</p>
+        <a href="https://buy.stripe.com/9B6bJ20Dk26k8fc57i0x203" class="btn btn-primary">Add to cart</a>
+      </div>
+      <div class="card card-cream">
         <h3>1-Pouch Subscription</h3>
         <p class="desc">One Raspberry pouch delivered every month. Skip or cancel anytime, no questions.</p>
-        <div class="price">$33 <small>/ month, shipping included</small></div>
+        <div class="price">$33 <small>/ month</small></div>
+        <p style="font-size:14.5px; font-weight:600; color:var(--berry); margin-top:-6px;">✓ Shipping included &nbsp;·&nbsp; Save $3</p>
         <a href="https://buy.stripe.com/3cI28sfye26kankeHS0x205" class="btn btn-primary">Subscribe & save</a>
       </div>
-      <div class="card featured">
+      <div class="card card-cream featured">
         <span class="flag">Most mamas choose this</span>
         <h3>2-Pouch Subscription</h3>
         <p class="desc">Two Raspberry pouches delivered every month. Skip or cancel anytime, no questions.</p>
-        <div class="price">$54 <small>/ month, save 10%</small></div>
-        <p style="font-size:12.5px; font-weight:600; color:var(--amber-light); margin-top:-6px;">✓ Free shipping</p>
+        <div class="price">$54 <small>/ month</small></div>
+        <p style="font-size:14.5px; font-weight:600; color:var(--berry); margin-top:-6px;">✓ Free shipping &nbsp;·&nbsp; Save 25%</p>
         <a href="https://buy.stripe.com/cNi7sM4TAh1eeDA6bm0x202" class="btn btn-primary">Subscribe & save</a>
-      </div>
-      <div class="card">
-        <h3>2-Pouch Bundle</h3>
-        <p class="desc">One for the pantry, one for the gym bag — 30 sticks total.</p>
-        <div class="price">$56 <small>one-time, save $4</small></div>
-        <p style="font-size:12.5px; font-weight:600; color:var(--amber-light); margin-top:-6px;">✓ Free shipping</p>
-        <a href="https://buy.stripe.com/9B6bJ20Dk26k8fc57i0x203" class="btn btn-primary">Add to cart</a>
       </div>
     </div>
   </div>
