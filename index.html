@@ -428,13 +428,17 @@
     <button class="popup-close" id="popupClose" aria-label="Close">✕</button>
     <h3>Get 10% off your first pouch!</h3>
     <p>Drop your email and it's yours — plus you'll be first to know when we launch.</p>
-    <form id="popupForm">
-      <input type="email" placeholder="you@email.com" required>
+    <form id="popupForm" action="https://mamabearhydration.us14.list-manage.com/subscribe/post?u=fae17762120394c0e9831e650&amp;id=e7ce519d76&amp;f_id=0082a3e1f0" method="post" target="mc_hidden_iframe" novalidate>
+      <input type="email" name="EMAIL" placeholder="you@email.com" required>
+      <div style="position:absolute; left:-5000px;" aria-hidden="true">
+        <input type="text" name="b_fae17762120394c0e9831e650_e7ce519d76" tabindex="-1" value="">
+      </div>
       <button type="submit" class="btn btn-primary" style="justify-content:center; border:none;">Send my discount</button>
     </form>
     <p class="popup-fine">You'll receive exclusive promo codes and the occasional educational newsletter.</p>
   </div>
 </div>
+<iframe name="mc_hidden_iframe" style="display:none;" title="mailchimp submit"></iframe>
 
 <script>
   (function(){
@@ -468,8 +472,13 @@
       });
     });
     form.addEventListener('submit', function(e){
-      e.preventDefault();
-      form.innerHTML = '<p style="font-weight:600;">You\'re on the list 🐾 Check your inbox for the code.</p>';
+      // Let the real submission proceed in the background to the hidden iframe
+      // (no preventDefault) so the email actually reaches Mailchimp.
+      // Delay the UI swap slightly so the browser finishes reading the form
+      // fields before we replace them.
+      setTimeout(function(){
+        form.innerHTML = '<p style="font-weight:600;">You\'re on the list 🐾 Check your inbox for the code.</p>';
+      }, 150);
       setTimeout(closePopup, 1800);
     });
   })();
