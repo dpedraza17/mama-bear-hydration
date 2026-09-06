@@ -297,7 +297,7 @@
       <div class="eyebrow">● Coming soon &nbsp;·&nbsp; from the makers of My Mom's Juice</div>
       <h1>Hydration that keeps up with a mama's day. <em>Not the other way around.</em></h1>
       <p class="lede">One stick, stirred into water, and you're back in it — pickup line, practice, or the 2am feeding. No blender, no fuss, no judgment.</p>
-      <p style="font-size:14.5px; opacity:0.7; max-width:44ch; margin-bottom:8px;">Built with busy moms in mind — but if you're just trying to keep up with your own day, it's for you too.</p>
+      <p style="font-size:14.5px; opacity:0.7; max-width:44ch; margin-bottom:28px;">Built with busy moms in mind — but if you're just trying to keep up with your own day, it's for you too.</p>
       <div class="btn-row">
         <a href="#shop" class="btn btn-primary">Reserve your first pouch</a>
         <a href="#story" class="btn btn-ghost">Why we started this</a>
@@ -315,7 +315,8 @@
         </ul>
       </div>
       <div class="price-line"><span class="num mono">$30</span><span class="unit">per pouch · $2 per stick</span></div>
-      <a href="#" id="notifyBtn" class="btn btn-primary" style="justify-content:center;">Get notified at launch</a>
+      <a href="https://buy.stripe.com/3cIdRa99Q12gbro7fq0x204" class="btn btn-primary" style="justify-content:center;">Add to cart</a>
+      <a href="https://buy.stripe.com/3cI28sfye26kankeHS0x205" class="btn" style="justify-content:center; margin-top:10px; background:var(--cream); color:var(--ink); border-color:var(--cream);">Subscribe &amp; Save</a>
     </div>
   </div>
   <div class="claw" style="color:var(--pine-deep);"></div>
@@ -401,18 +402,6 @@
 </section>
 
 
-<section class="capture" style="padding-top:44px;">
-  <div class="wrap">
-    <h2>Be first to know when we launch.</h2>
-    <p>Drop your email and get 10% off your first order — plus you'll be first to know when we launch.</p>
-    <form class="signup" onsubmit="event.preventDefault(); this.querySelector('button').textContent='You\'re on the list 🐾';">
-      <input type="email" placeholder="you@email.com" required>
-      <button type="submit" class="btn btn-primary">Get 10% off</button>
-    </form>
-    <p class="fineprint">You'll receive exclusive promo codes and the occasional educational newsletter.</p>
-  </div>
-</section>
-
 <footer>
   <div class="wrap">
     <div class="foot-grid">
@@ -450,20 +439,16 @@
     var popup = document.getElementById('emailPopup');
     var closeBtn = document.getElementById('popupClose');
     var form = document.getElementById('popupForm');
-    var notifyBtn = document.getElementById('notifyBtn');
 
     function openPopup(){ popup.classList.add('show'); }
     function closePopup(){ popup.classList.remove('show'); }
 
-    setTimeout(openPopup, 4000);
+    // Popup temporarily disabled — re-enable by uncommenting the line below
+    // setTimeout(openPopup, 4000);
 
     closeBtn.addEventListener('click', closePopup);
     popup.addEventListener('click', function(e){
       if (e.target === popup) closePopup();
-    });
-    notifyBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      openPopup();
     });
 
     document.querySelectorAll('a[href^="#"]').forEach(function(link){
