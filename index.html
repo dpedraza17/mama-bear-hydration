@@ -254,6 +254,17 @@
   .popup-card input:focus{ outline:2px solid var(--amber-light); outline-offset:2px; }
   .popup-fine{ font-size:11.5px; color:#8a7c66; margin-top:12px; }
 
+  /* SHIPPING POPUP - plain title, no speech-bubble/mascot styling */
+  .shipping-popup-card{ padding:40px 34px; margin-top:0; }
+  .shipping-popup-card h3{
+    position:static; background:none; border:none; padding:0;
+    width:auto; text-transform:none; text-align:center;
+    font-family:'Baloo 2', sans-serif; font-weight:700;
+    margin:0 0 20px; line-height:1.3;
+  }
+  .shipping-popup-card h3::before,
+  .shipping-popup-card h3::after{ content:none; }
+
   /* EMAIL CAPTURE */
   .capture{ background:var(--birch); text-align:center; }
   .capture .wrap{ max-width:600px; }
@@ -294,7 +305,7 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">● Coming soon &nbsp;·&nbsp; from the makers of My Mom's Juice</div>
+      <div class="eyebrow">● Soft launch September 13, 2026 &nbsp;·&nbsp; from the makers of My Mom's Juice</div>
       <h1>Hydration that keeps up with a mama's day. <em>Not the other way around.</em></h1>
       <p class="lede">One stick, stirred into water, and you're back in it — pickup line, practice, or the 2am feeding. No blender, no fuss, no judgment.</p>
       <p style="font-size:14.5px; opacity:0.7; max-width:44ch; margin-bottom:28px;">Built with busy moms in mind — but if you're just trying to keep up with your own day, it's for you too.</p>
@@ -434,6 +445,15 @@
 </div>
 <iframe name="mc_hidden_iframe" style="display:none;" title="mailchimp submit"></iframe>
 
+<div class="popup-overlay" id="shippingPopup">
+  <div class="popup-card shipping-popup-card">
+    <button class="popup-close" id="shippingPopupClose" aria-label="Close">✕</button>
+    <h3>The first 20 orders ship immediately. Every order after that ships September 30th.</h3>
+    <button type="button" class="btn btn-primary" id="shippingPopupOk" style="justify-content:center; border:none; width:100%;">Got it</button>
+    <p class="popup-fine">Reserve early to be one of the first 20.</p>
+  </div>
+</div>
+
 <script>
   (function(){
     var popup = document.getElementById('emailPopup');
@@ -470,6 +490,23 @@
         form.innerHTML = '<p style="font-weight:600;">You\'re on the list 🐾 Check your inbox for the code.</p>';
       }, 150);
       setTimeout(closePopup, 1800);
+    });
+  })();
+
+  (function(){
+    var popup = document.getElementById('shippingPopup');
+    var closeBtn = document.getElementById('shippingPopupClose');
+    var okBtn = document.getElementById('shippingPopupOk');
+
+    function openPopup(){ popup.classList.add('show'); }
+    function closePopup(){ popup.classList.remove('show'); }
+
+    setTimeout(openPopup, 3000);
+
+    closeBtn.addEventListener('click', closePopup);
+    okBtn.addEventListener('click', closePopup);
+    popup.addEventListener('click', function(e){
+      if (e.target === popup) closePopup();
     });
   })();
 </script>
