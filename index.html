@@ -203,21 +203,33 @@
   .card .btn.btn-disabled{ opacity:0.5; pointer-events:none; }
 
   /* SHIP / PICKUP TOGGLE */
-  .fulfill{ margin:0 0 28px; }
-  .fulfill-seg{
-    display:inline-flex; background:var(--pine-deep); border:1px solid var(--line);
-    border-radius:100px; padding:4px; gap:4px;
-  }
+  .fulfill{ margin:0 0 32px; }
+  .fulfill h3{ font-size:clamp(22px,3vw,28px); margin-bottom:14px; }
+  .fulfill-seg{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:600px){ .fulfill-seg{ grid-template-columns:1fr; } }
   .fulfill-seg button{
-    font:inherit; font-weight:600; font-size:14.5px; color:var(--cream);
-    background:transparent; border:none; border-radius:100px;
-    padding:10px 20px; cursor:pointer;
+    font:inherit; color:var(--cream); text-align:left; cursor:pointer;
+    display:flex; align-items:center; gap:16px;
+    background:var(--pine-deep); border:2px solid var(--line); border-radius:20px;
+    padding:20px 22px; position:relative;
+    transition:border-color .15s ease, background .15s ease;
   }
-  .fulfill-seg button[aria-pressed="true"]{ background:var(--amber-light); color:var(--pine-deep); }
-  .fulfill-seg button:focus-visible{ outline:2px solid var(--cream); outline-offset:2px; }
+  .fulfill-seg button:hover{ border-color:rgba(247,240,227,0.45); }
+  .fulfill-seg .f-icon{ font-size:34px; line-height:1; flex:none; }
+  .fulfill-seg .f-title{ display:block; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:21px; line-height:1.15; }
+  .fulfill-seg .f-sub{ display:block; font-size:14px; opacity:0.8; margin-top:3px; }
+  .fulfill-seg .f-check{
+    margin-left:auto; flex:none; width:26px; height:26px; border-radius:50%;
+    border:2px solid rgba(247,240,227,0.5); display:flex; align-items:center; justify-content:center;
+    font-size:15px; font-weight:800; color:transparent;
+  }
+  .fulfill-seg button[aria-pressed="true"]{ background:var(--cream); color:var(--ink); border-color:var(--amber-light); box-shadow:0 0 0 3px var(--amber-light); }
+  .fulfill-seg button[aria-pressed="true"] .f-sub{ opacity:0.75; }
+  .fulfill-seg button[aria-pressed="true"] .f-check{ background:var(--berry); border-color:var(--berry); color:#fff; }
+  .fulfill-seg button:focus-visible{ outline:3px solid var(--cream); outline-offset:3px; }
   .pickup-info{
-    margin-top:16px; background:var(--pine-deep); border:1px solid var(--amber-light);
-    border-radius:18px; padding:20px 22px; max-width:560px;
+    margin-top:14px; background:var(--pine-deep); border:1px solid var(--amber-light);
+    border-radius:18px; padding:20px 22px;
   }
   .pickup-info[hidden]{ display:none; }
   .pickup-info strong{ font-family:'Baloo 2', sans-serif; font-size:18px; display:block; margin-bottom:6px; }
@@ -379,15 +391,25 @@
       <p>Every option ships the same pouch — the only thing that changes is how often it shows up.</p>
     </div>
     <div class="fulfill">
+      <h3>How do you want to get it?</h3>
       <div class="fulfill-seg" role="group" aria-label="Choose shipping or local pickup">
-        <button type="button" data-fulfill="ship" aria-pressed="true">Ship it to me</button>
-        <button type="button" data-fulfill="pickup" aria-pressed="false">Free local pickup</button>
+        <button type="button" data-fulfill="ship" aria-pressed="true">
+          <span class="f-icon" aria-hidden="true">📦</span>
+          <span><span class="f-title">Ship it to me</span><span class="f-sub">Free shipping on 2-pouch orders</span></span>
+          <span class="f-check" aria-hidden="true">✓</span>
+        </button>
+        <button type="button" data-fulfill="pickup" aria-pressed="false">
+          <span class="f-icon" aria-hidden="true">📍</span>
+          <span><span class="f-title">Free local pickup</span><span class="f-sub">83rd Ave &amp; McDowell · Fri–Sun</span></span>
+          <span class="f-check" aria-hidden="true">✓</span>
+        </button>
       </div>
       <div class="pickup-info" id="pickupInfo" hidden>
         <strong>Pick up free at our pop-up on 83rd Ave &amp; McDowell</strong>
         <p><a href="https://maps.google.com/?q=8367+W+McDowell+Rd+Tolleson+AZ" target="_blank" rel="noopener">8367 W McDowell Rd, Tolleson, AZ</a></p>
         <p>Fridays 10am–2pm · Saturdays &amp; Sundays 8am–12pm</p>
-        <p>No shipping fee. We'll text you to confirm which day your order is ready.</p>
+        <p>No shipping fee. Show your email receipt in person when picking up!</p>
+        <p>Text us at <a href="sms:+14808750690">480-875-0690</a> with any questions.</p>
       </div>
     </div>
     <div class="cards">
