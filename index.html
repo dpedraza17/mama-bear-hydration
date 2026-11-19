@@ -236,6 +236,18 @@
   .pickup-info p{ font-size:14.5px; opacity:0.88; }
   .pickup-info p + p{ margin-top:6px; }
   .pickup-info a{ color:var(--amber-light); }
+  .pickup-locs{ display:grid; gap:10px; margin:10px 0 12px; }
+  .pickup-loc{ background:rgba(247,240,227,0.06); border:2px solid var(--line); border-radius:14px; padding:0 14px 10px; transition:border-color .15s ease, background .15s ease; }
+  .pickup-loc.sel{ border-color:var(--amber-light); background:rgba(247,240,227,0.12); }
+  .loc-btn{ font:inherit; color:inherit; text-align:left; cursor:pointer; background:none; border:0; width:100%; display:flex; align-items:flex-start; gap:12px; padding:12px 0 4px; }
+  .loc-btn:focus-visible{ outline:3px solid var(--cream); outline-offset:2px; border-radius:8px; }
+  .loc-radio{ flex:none; width:22px; height:22px; margin-top:2px; border-radius:50%; border:2px solid rgba(247,240,227,0.5); position:relative; }
+  .loc-btn[aria-pressed="true"] .loc-radio{ border-color:var(--amber-light); }
+  .loc-btn[aria-pressed="true"] .loc-radio::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--amber-light); }
+  .pickup-loc .loc-name{ display:block; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:16px; }
+  .pickup-loc .loc-hrs{ display:block; font-size:14px; opacity:0.88; margin-top:2px; }
+  .pickup-loc .loc-map{ display:block; font-size:13.5px; margin-left:34px; }
+  .pickup-chosen{ font-weight:700; }
   .popup-error{ font-size:13px; color:var(--berry); font-weight:600; min-height:1em; margin:2px 0 0; }
   .popup-code{
     font-family:'Baloo 2', sans-serif; font-size:30px; font-weight:800; letter-spacing:0.06em;
@@ -378,7 +390,7 @@
   <span>🐻 Family-run · Phoenix, AZ</span>
   <span>⚡ One flavor, done right</span>
   <span>📦 Subscribe & save, cancel anytime</span>
-  <span>📍 Free pickup at 83rd Ave & McDowell</span>
+  <span>📍 Free pickup · Mesa, Tolleson &amp; Phoenix</span>
 </div></div>
 
 <section class="products" id="shop" style="padding-top:44px;">
@@ -400,15 +412,37 @@
         </button>
         <button type="button" data-fulfill="pickup" aria-pressed="false">
           <span class="f-icon" aria-hidden="true">📍</span>
-          <span><span class="f-title">Free local pickup</span><span class="f-sub">83rd Ave &amp; McDowell · Fri–Sun</span></span>
+          <span><span class="f-title">Free local pickup</span><span class="f-sub">3 locations · Mesa, Tolleson &amp; Phoenix</span></span>
           <span class="f-check" aria-hidden="true">✓</span>
         </button>
       </div>
       <div class="pickup-info" id="pickupInfo" hidden>
-        <strong>Pick up free at our pop-up on 83rd Ave &amp; McDowell</strong>
-        <p><a href="https://maps.google.com/?q=8367+W+McDowell+Rd+Tolleson+AZ" target="_blank" rel="noopener">8367 W McDowell Rd, Tolleson, AZ</a></p>
-        <p>Fridays 10am–2pm · Saturdays &amp; Sundays 8am–12pm</p>
-        <p>No shipping fee. Show your email receipt in person when picking up!</p>
+        <strong>Choose your pickup location</strong>
+        <div class="pickup-locs" role="group" aria-label="Choose a pickup location">
+          <div class="pickup-loc">
+            <button type="button" class="loc-btn" data-loc="mesa" aria-pressed="true">
+              <span class="loc-radio" aria-hidden="true"></span>
+              <span><span class="loc-name">The Kitchen's Market · Mesa</span><span class="loc-hrs">Wed–Fri 8am–5pm · Sat 8am–3pm · Sun 10am–3pm</span></span>
+            </button>
+            <a class="loc-map" href="https://maps.google.com/?q=2655+W+Guadalupe+Rd+Suite+13+Mesa+AZ" target="_blank" rel="noopener">2655 W Guadalupe Rd, Suite 13, Mesa, AZ ↗</a>
+          </div>
+          <div class="pickup-loc">
+            <button type="button" class="loc-btn" data-loc="tolleson" aria-pressed="false">
+              <span class="loc-radio" aria-hidden="true"></span>
+              <span><span class="loc-name">Pop-Up · 83rd Ave &amp; McDowell</span><span class="loc-hrs">Sat 9am–1pm · Sun 9am–2pm</span></span>
+            </button>
+            <a class="loc-map" href="https://maps.google.com/?q=8367+W+McDowell+Rd+Tolleson+AZ" target="_blank" rel="noopener">8367 W McDowell Rd, Tolleson, AZ ↗</a>
+          </div>
+          <div class="pickup-loc">
+            <button type="button" class="loc-btn" data-loc="phoenix" aria-pressed="false">
+              <span class="loc-radio" aria-hidden="true"></span>
+              <span><span class="loc-name">Pop-Up · 16th St &amp; McDowell</span><span class="loc-hrs">Saturdays 9am–1pm</span></span>
+            </button>
+            <a class="loc-map" href="https://maps.google.com/?q=1710+N+16th+St+Phoenix+AZ" target="_blank" rel="noopener">1710 N 16th St, Phoenix, AZ ↗</a>
+          </div>
+        </div>
+        <p class="pickup-chosen" id="pickupChosen"></p>
+        <p>No shipping fee. Show your email receipt in person when picking up! Hours can change on holiday weekends &mdash; check <a href="https://mymomsjuice.com" target="_blank" rel="noopener">mymomsjuice.com</a> for closures.</p>
         <p>Text us at <a href="sms:+14808750690">480-875-0690</a> with any questions.</p>
       </div>
     </div>
@@ -563,6 +597,12 @@
       sub1:    'https://buy.stripe.com/28E6oI2Ls7qEeDA6bm0x20k', // 1-pouch subscription, $24.30/mo, pickup
       sub2:    'https://buy.stripe.com/bJedRaadU8uI0MKdDO0x20l'  // 2-pouch subscription, $41.65/mo, pickup
     };
+    var PICKUP_LOCS = {
+      mesa:     {label: "Mesa (The Kitchen's Market)",      short: 'Mesa'},
+      tolleson: {label: 'Tolleson (83rd Ave & McDowell)',   short: 'Tolleson'},
+      phoenix:  {label: 'Phoenix (16th St & McDowell)',     short: 'Phoenix'}
+    };
+    var pickupLoc = 'mesa';
     var PICKUP_TEXT_NAMES = {
       pouch1: '1 pouch', bundle2: 'the 2-pouch bundle',
       sub1: 'the 1-pouch subscription', sub2: 'the 2-pouch subscription'
@@ -577,6 +617,14 @@
         btn.setAttribute('aria-pressed', btn.dataset.fulfill === mode ? 'true' : 'false');
       });
       document.getElementById('pickupInfo').hidden = (mode !== 'pickup');
+      document.querySelectorAll('[data-loc]').forEach(function(lb){
+        var on = lb.dataset.loc === pickupLoc;
+        lb.setAttribute('aria-pressed', on ? 'true' : 'false');
+        lb.parentNode.classList.toggle('sel', on);
+      });
+      document.getElementById('pickupChosen').textContent = 'Picking up in ' + PICKUP_LOCS[pickupLoc].short + ' — you\'ll pay online, then grab it there.';
+      var fsub = document.querySelector('[data-fulfill="pickup"] .f-sub');
+      if (fsub) fsub.textContent = mode === 'pickup' ? 'Pickup in ' + PICKUP_LOCS[pickupLoc].short : '3 locations · Mesa, Tolleson & Phoenix';
       document.querySelectorAll('.ship-line').forEach(function(el){
         el.innerHTML = mode === 'pickup' ? el.dataset.pickup : el.dataset.ship;
       });
@@ -588,10 +636,11 @@
         }
         var link = PICKUP_LINKS[b.dataset.product];
         if (link){
-          b.setAttribute('href', link);
+          // client_reference_id shows the chosen location on the Stripe checkout session
+          b.setAttribute('href', link + (link.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=pickup_' + pickupLoc);
           b.textContent = b.dataset.shipLabel;
         } else {
-          var body = encodeURIComponent("Hi! I'd like to reserve " + PICKUP_TEXT_NAMES[b.dataset.product] + " of Mama Bear Hydration for pickup at 83rd Ave & McDowell.");
+          var body = encodeURIComponent("Hi! I'd like to reserve " + PICKUP_TEXT_NAMES[b.dataset.product] + " of Mama Bear Hydration for pickup at " + PICKUP_LOCS[pickupLoc].label + ".");
           b.setAttribute('href', 'sms:+14808750690?&body=' + body);
           b.textContent = 'Text us to reserve';
         }
@@ -600,6 +649,10 @@
     document.querySelectorAll('[data-fulfill]').forEach(function(btn){
       btn.addEventListener('click', function(){ setFulfillment(btn.dataset.fulfill); });
     });
+    document.querySelectorAll('[data-loc]').forEach(function(lb){
+      lb.addEventListener('click', function(){ pickupLoc = lb.dataset.loc; setFulfillment('pickup'); });
+    });
+    setFulfillment('ship');
     popup.addEventListener('click', function(e){
       if (e.target === popup) closePopup();
     });
